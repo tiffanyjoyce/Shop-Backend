@@ -24,3 +24,10 @@ def allproducts():
     for p in prods:
        prod_list.append({'id': p.id, 'title': p.title, 'price': p.price, 'description': p.description, 'image': p.image, 'category': p.category, 'rating': p.rating, 'rating_count': p.rating_count})
     return {'status': 'ok', 'data': prod_list, 'item_count': len(prod_list)}
+
+@api.post('/product')
+def product():
+    productId= request.json.get('ProductId')
+
+    prod = Product.query.filter_by(id=productId).first()
+    return({"id":prod.id, "title": prod.title, "image": prod.image, "description":prod.description, "price": prod.price, 'category': prod.category, "rating": prod.rating, "rating_count": prod.rating_count})
